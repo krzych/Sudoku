@@ -1,0 +1,10 @@
+/Debug
+*.png
+*.xml
+main.cpp
+stdafx.cpp
+stdafx.h
+targetver.h
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
