@@ -2,7 +2,10 @@
 #include "DigitExtractor.h"
 #include "ImageUtilities.h"
 #include <opencv2\imgproc\imgproc.hpp>
+#include <opencv2\highgui\highgui.hpp>
 #include <vector>
+
+using namespace cv;
 
 DigitExtractor::DigitExtractor(void)
 	: ready_flag(false)
@@ -52,7 +55,36 @@ void DigitExtractor::LoadImage(cv::Mat& img)
 
 void DigitExtractor::Preprocess(cv::Mat* img)
 {
-	img_utilities::AdaptiveThreshold(img, img, 255, ADAPTIVE_THRESHOLD_MEAN_C, THRESH_BINARY_INV, 7, 2);
+	bool adjust = false;
+
+	if(adjust) {
+		imshow("input", *img);
+		cvMoveWindow("input", 0, 100);
+	}
+
+	img_utilities::AdaptiveThreshold(img, img, 255, ADAPTIVE_THRESHOLD_MEAN_C, cv::THRESH_BINARY_INV, 7, 2);
+	if(adjust) {
+		imshow("thresh", *img);
+		cvMoveWindow("thresh", 250, 100);
+	}
+
 	img_utilities::FloodFillBorders(img, 20);
+	if(adjust) {
+		imshow("filled", *img);
+		cvMoveWindow("filled", 500, 100);
+	}
+
 	img_utilities::FindBiggestBlob(img);
+	if(adjust) {
+		imshow("blob", *img);
+		cvMoveWindow("blob", 750, 100);
+	}
+	
+	if(adjust) {
+		waitKey();
+	}
+	destroyWindow("input");
+	destroyWindow("thresh");
+	destroyWindow("filled");
+	destroyWindow("blob");
 }

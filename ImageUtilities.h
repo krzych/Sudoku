@@ -1,6 +1,7 @@
 #pragma once
 
 #include <opencv2\core\core.hpp>
+#include <vector>
 
 namespace {
 	enum { ADAPTIVE_THRESHOLD_MEAN_C, ADAPTIVE_THRESHOLD_GAUSSIAN_C};
@@ -38,6 +39,9 @@ namespace img_utilities
 	bool SampleLine(const IplImage* img, cv::Point p1, cv::Point p2, 
 		                   int thresh, cv::Point* point);
 	void GetLineParams(const CvArr* points_seq, float* params);
+	void FindSquares(const cv::Mat& img, 
+		             std::vector<std::vector<cv::Point>>& squares);
+	double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0);
 
 };
 

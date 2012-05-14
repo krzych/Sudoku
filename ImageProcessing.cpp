@@ -1,7 +1,9 @@
 #include "StdAfx.h"
 #include "ImageProcessing.h"
 #include <boost\optional.hpp>
+#include <iostream>
 
+using namespace std;
 
 ImageProcessing::ImageProcessing(void)
 	: ready_flag(false)
@@ -23,6 +25,7 @@ std::vector<SudokuCellImg> ImageProcessing::Run(void)
 	std::vector<SudokuCellImg> v;
 	for(int row = 0; row < 9; ++row) {
 		for(int col = 0; col < 9; ++col) {
+			cout << "Extracting cell " << row*9+col+1 << " out of 81...";
 			boost::optional<cv::Mat> digit = 
 				digit_extractor.ExtractDigit(col, row, 50); //!!threshold
 			if(digit) {
@@ -32,6 +35,7 @@ std::vector<SudokuCellImg> ImageProcessing::Run(void)
 				cell.img = (*digit).clone();
 				v.push_back(cell);
 			}
+			cout << "Done!" << endl;
 		}
 	}
 	return v;

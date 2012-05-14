@@ -21,6 +21,7 @@ private:
 	cv::Mat tmp_img;
 	cv::Mat output_img;
 	cv::Mat transformation_matrix;
+	cv::Point offset;
 	static cv::Size default_size;
 	bool extracted_flag;
 	bool ready_flag;

@@ -1,6 +1,7 @@
 /Debug
 *.png
 *.xml
+*.jpg
 main.cpp
 stdafx.cpp
 stdafx.h

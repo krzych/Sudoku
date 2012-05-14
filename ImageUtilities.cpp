@@ -270,18 +270,94 @@ void GetLineParams(const CvArr* points_seq, float* params)
 	params[1] = B;
 	params[2] = C;
 }
-}
-/*
-img_utilities::img_utilities(void)
+
+void FindSquares(const cv::Mat& img, 
+	             std::vector<std::vector<cv::Point>>& squares)
 {
+	const int N = 11;
+	const int thresh = 50;
+	squares.clear();
+
+	Mat pyr, timg, gray0(img.size(), CV_8U), gray;
+
+	// down-scale and upscale the image to filter out the noise
+    pyrDown(img, pyr, Size(img.cols/2, img.rows/2));
+    pyrUp(pyr, timg, img.size());
+
+    vector<vector<Point> > contours;
+	gray0 = timg.clone();
+    Canny(gray0, gray, 0, thresh, 5);
+
+    // dilate canny output to remove potential
+    // holes between edge segments
+	Mat kernel = getStructuringElement(MORPH_RECT, Size(5, 5));
+    dilate(gray, gray, kernel);
+    // find contours and store them all as a list
+    findContours(gray, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+
+    vector<Point> approx;
+            
+	int num = contours.size();
+    // test each contour
+    for( size_t i = 0; i < contours.size(); i++ ) {
+        // approximate contour with accuracy proportional
+        // to the contour perimeter
+        approxPolyDP(Mat(contours[i]), approx, arcLength(Mat(contours[i]), true)*0.02, true);
+                
+        // square contours should have 4 vertices after approximation
+        // relatively large area (to filter out noisy contours)
+        // and be convex.
+        // Note: absolute value of an area is used because
+        // area may be positive or negative - in accordance with the
+        // contour orientation
+        if( approx.size() == 4 &&
+            fabs(contourArea(Mat(approx))) > 1000 &&
+            isContourConvex(Mat(approx)) ) {
+            double maxCosine = 0;
+
+            for( int j = 2; j < 5; j++ ) {
+                // find the maximum cosine of the angle between joint edges
+                double cosine = fabs(angle(approx[j%4], approx[j-2], approx[j-1]));
+                maxCosine = MAX(maxCosine, cosine);
+            }
+
+            // if cosines of all angles are small
+            // (all angles are ~90 degree) then write quandrange
+            // vertices to resultant sequence
+            if( maxCosine < 0.2 )
+                squares.push_back(approx);
+        }
+	}
+	//if(squares.size() == 0) return;
+	for(size_t i = squares.size(); i > 0; --i) {
+		Point p1 = squares[i-1][0];
+		Point p2 = squares[i-1][1];
+		Point p3 = squares[i-1][2];
+		Point p4 = squares[i-1][3];
+
+		double dist_p1_p2 = sqrt( pow(p1.x-p2.x, 2.0) + pow(p1.y-p2.y, 2.0) );
+		double dist_p2_p3 = sqrt( pow(p2.x-p3.x, 2.0) + pow(p2.y-p3.y, 2.0) );
+		double dist_p3_p4 = sqrt( pow(p3.x-p4.x, 2.0) + pow(p3.y-p4.y, 2.0) );
+		double dist_p4_p1 = sqrt( pow(p4.x-p1.x, 2.0) + pow(p4.y-p1.y, 2.0) );
+		double dist_mean = 0.25*(dist_p1_p2+dist_p2_p3+dist_p3_p4+dist_p4_p1);
+		
+		if( dist_p1_p2/dist_mean < 0.9 ||
+			dist_p2_p3/dist_mean < 0.9 ||
+			dist_p3_p4/dist_mean < 0.9 ||
+			dist_p4_p1/dist_mean < 0.9) {
+				squares.erase(squares.begin()+i-1);
+		}
+	}
 }
 
-img_utilities::img_utilities(const img_utilities&)
+double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0)
 {
+	double dx1 = pt1.x - pt0.x;
+    double dy1 = pt1.y - pt0.y;
+    double dx2 = pt2.x - pt0.x;
+    double dy2 = pt2.y - pt0.y;
+    return (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
+}
 }
 
-img_utilities::~img_utilities(void)
-{
-}
 
-*/
