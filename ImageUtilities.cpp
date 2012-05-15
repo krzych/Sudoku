@@ -2,7 +2,9 @@
 #include "ImageUtilities.h"
 #include <opencv2\imgproc\imgproc.hpp>
 #include <opencv2\imgproc\imgproc_c.h>
+#include <list>
 
+using namespace std;
 using namespace cv;
 
 namespace img_utilities
@@ -40,6 +42,51 @@ void FindBiggestBlob(cv::Mat* img)
 			}
 		}
 	}
+}
+
+void FindNBiggestBlobs(cv::Mat* img, int n)
+{
+	//for now n parameter is ignored
+	
+	int max_count[] = {-1, -1};
+	Point blob_point[] = {Point(-1, -1), Point(-1, -1)};
+
+	for(int y = 0; y < img->size().height; ++y) {
+		uchar* row = img->ptr(y);
+		for(int x = 0; x < img->size().width; ++x) {
+			if(row[x] > 128) {
+				
+				int count = floodFill(*img, Point(x, y), Scalar::all(64));
+				if(count > max_count[1]) {
+					if(count > max_count[0]) {
+						max_count[1] = max_count[0];
+						blob_point[1] = blob_point[0];
+						max_count[0] = count;
+						blob_point[0] = Point(x, y);
+					} else {
+						max_count[1] = count;
+						blob_point[1] = Point(x, y);
+					}
+				}
+
+			}
+		}
+	}
+
+	//color biggest blob with white (255, 255, 255)
+	if(blob_point[0].x != -1) floodFill(*img, blob_point[0], Scalar::all(255));
+	if(blob_point[1].x != -1) floodFill(*img, blob_point[1], Scalar::all(255));
+
+	//color all other blobs with black (0, 0, 0)
+	for(int y = 0; y < img->size().height; ++y) {
+		uchar* row = img->ptr(y);
+		for(int x = 0; x < img->size().width; ++x) {
+			if(row[x] == 64) {
+				floodFill(*img, Point(x, y), Scalar::all(0));
+			}
+		}
+	}
+
 }
 
 void Resize(const cv::Mat& input_img, cv::Mat* output_img, int interpolation)
@@ -272,9 +319,9 @@ void GetLineParams(const CvArr* points_seq, float* params)
 }
 
 void FindSquares(const cv::Mat& img, 
-	             std::vector<std::vector<cv::Point>>& squares)
+	             std::vector<std::vector<cv::Point>>& squares,
+				 int countourAreaThresh)
 {
-	const int N = 11;
 	const int thresh = 50;
 	squares.clear();
 
@@ -311,7 +358,7 @@ void FindSquares(const cv::Mat& img,
         // area may be positive or negative - in accordance with the
         // contour orientation
         if( approx.size() == 4 &&
-            fabs(contourArea(Mat(approx))) > 1000 &&
+            fabs(contourArea(Mat(approx))) > countourAreaThresh &&
             isContourConvex(Mat(approx)) ) {
             double maxCosine = 0;
 

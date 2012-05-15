@@ -14,10 +14,7 @@ ImageAcquirer::~ImageAcquirer(void)
 {
 }
 
-cv::Mat ImageAcquirer::AcquireImage(void)
+cv::Mat ImageAcquirer::AcquireImage(const char* file_name)
 {
-	std::string filename;
-	std::cout << "Filename: ";
-	std::cin >> filename;
-	return cv::imread(filename.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
+	return cv::imread(file_name, CV_LOAD_IMAGE_GRAYSCALE);
 }

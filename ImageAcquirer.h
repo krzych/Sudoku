@@ -8,6 +8,6 @@ public:
 	ImageAcquirer(void);
 	~ImageAcquirer(void);
 
-	cv::Mat AcquireImage(void);
+	cv::Mat AcquireImage(const char* file_name);
 };
 

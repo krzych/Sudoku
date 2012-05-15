@@ -13,6 +13,7 @@ namespace img_utilities
 {
 
 	void FindBiggestBlob(cv::Mat* img);
+	void FindNBiggestBlobs(cv::Mat* img, int n);
 	void Resize(const cv::Mat& input_img, cv::Mat* output_img,
 		               int interpolation);
 	void AdaptiveThreshold(cv::Mat* input_img, cv::Mat* output_img, 
@@ -40,7 +41,8 @@ namespace img_utilities
 		                   int thresh, cv::Point* point);
 	void GetLineParams(const CvArr* points_seq, float* params);
 	void FindSquares(const cv::Mat& img, 
-		             std::vector<std::vector<cv::Point>>& squares);
+		             std::vector<std::vector<cv::Point>>& squares,
+					 int countourAreaThresh);
 	double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0);
 
 };
