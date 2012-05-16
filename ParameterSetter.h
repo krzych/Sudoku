@@ -20,13 +20,28 @@ public:
 	void ClearAllAdjustFlags(void);
 
 	//sudoku extractor(SE) param setting funcs
-	void SetSEKernelSizeGauss(int kernel_size);
-	void SetSEBlockSize(int block_size);
-	void SetSEC(double c);
-	void SetSEContourAreaThresh(int thresh);
-	void SetSEKernelSizeMorph(int kernel_size);
+	void   SetSEKernelSizeGauss(int kernel_size);
+	int    GetSEKernelSizeGauss(void);
+	void   SetSEBlockSize(int block_size);
+	int    GetSEBlockSize(void);
+	void   SetSEC(double c);
+	double GetSEC(void);
+	void   SetSEContourAreaThresh(int thresh);
+	int    GetSEContourAreaThresh(void);
+	void   SetSEKernelSizeMorph(int kernel_size);
+	int    GetSEKernelSizeMorph(void);
 
-
+	//digit extractor(DE) param setting funcs
+	void   SetDEBlockSize(int block_size, unsigned int col, unsigned int row);
+	int    GetDEBlockSize(void);
+	void   SetDEC(double c, unsigned int col, unsigned int row);
+	double GetDEC(void);
+	void   SetDEPercentage(int percentage, unsigned int col, unsigned int row);
+	int    GetDEPercentage(void);
+	void   SetDEN(int n, unsigned int col, unsigned int row);
+	int    GetDEN(void);
+	void   SetDEKernelSizeMorph(int kernel_size, unsigned int col, unsigned int row);
+	int    GetDEKernelSizeMorph(void);
 
 private:
 	SudokuExtractor sudoku_extractor;

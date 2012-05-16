@@ -1,0 +1,16 @@
+DigitExtractor Parameters
+Preprocess func
+    int blockSize = 7      /AdaptiveThreshold/
+    double C = 2	   /AdaptiveThreshold/
+    int percentage = 20    /FloodFillBorders/
+    int n = 2	       	   /FindNBiggestBlobs/
+    int thresh_ = 50       /ExtractDigit/
+
+
+SudokuExtractor Parameters
+Preprocess func
+    int kernelSizeGauss = 11       /GaussianBlur/
+    int blockSize = 5              /AdaptiveThreshold/
+    double C = 2                   /AdaptiveThreshold/
+    int contourAreaThresh = 1000   /FindSquares/
+    int kernelSizeMorph = 3        /Dilate and Erode/

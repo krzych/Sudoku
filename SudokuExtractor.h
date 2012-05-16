@@ -26,9 +26,9 @@ public:
 	inline void SetKernelSizeMorph(int kernel_size) { kernel_size_morph_ = kernel_size; }
 	
 	void ClearAdjustFlags(void);
-	inline void SetBlurFlag(void) { ClearAdjustFlags(); blur_flag = true; }
+	inline void SetGaussFlag(void) { ClearAdjustFlags(); gauss_flag = true; }
 	inline void SetThresholdFlag(void) { ClearAdjustFlags(); threshold_flag = true; }
-	inline void SetFindSquareFlag(void) { ClearAdjustFlags(); find_square_flag = true; }
+	inline void SetSquareFlag(void) { ClearAdjustFlags(); square_flag = true; }
 	inline void SetBlobFlag(void) { ClearAdjustFlags(); blob_flag = true; }
 
 private:
@@ -46,7 +46,7 @@ private:
 	cv::Size default_size;
 	bool extracted_flag;
 	bool ready_flag;
-	bool blur_flag, threshold_flag, find_square_flag, blob_flag;
+	bool gauss_flag, threshold_flag, square_flag, blob_flag;
 
 	//parameters
 	std::string file_name_;

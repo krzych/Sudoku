@@ -64,11 +64,11 @@ void SudokuExtractor::Preprocess(void)
 {
 	Size kernel_size_gauss = Size(kernel_size_gauss_, kernel_size_gauss_);
 	img_utilities::GaussianBlur(&input_img, &tmp_img, kernel_size_gauss, 0);
-	if(blur_flag) {
-		imshow("blur", tmp_img);
-		cvMoveWindow("blur", 0, 0);
+	if(gauss_flag) {
+		imshow("gauss", tmp_img);
+		cvMoveWindow("gauss", 0, 0);
 		waitKey();
-		destroyWindow("blur");
+		destroyWindow("gauss");
 		return;
 	}
 
@@ -102,11 +102,11 @@ void SudokuExtractor::Preprocess(void)
     int n = (int)squares[index].size();
 	Mat tmp_img_squares = input_img.clone();
     polylines(tmp_img_squares, &p, &n, 1, true, cv::Scalar::all(255), 3, CV_AA);
-	if(find_square_flag) {
-		imshow("found square", tmp_img_squares);
-		cvMoveWindow("found square", 0, 0);
+	if(square_flag) {
+		imshow("square", tmp_img_squares);
+		cvMoveWindow("square", 0, 0);
 		waitKey();
-		destroyWindow("found square");
+		destroyWindow("square");
 		return;
 	}
 
@@ -171,9 +171,9 @@ void SudokuExtractor::SetDefaultParameters(void)
 
 void SudokuExtractor::ClearAdjustFlags(void) 
 {
-	blur_flag = false;
+	gauss_flag = false;
 	threshold_flag = false;
-	find_square_flag = false;
+	square_flag = false;
 	blob_flag = false;
 }
 
