@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ParameterSetter.h"
 #include <opencv2\highgui\highgui.hpp>
 
@@ -14,11 +13,11 @@ ParameterSetter::~ParameterSetter(void)
 
 }
 
-void ParameterSetter::LoadImage(const char* file_name)
+void ParameterSetter::ImageLoad(const char* file_name)
 {
 	sudoku_extractor.ClearAdjustFlags();
 	input_img = image_acquirer.AcquireImage(file_name);
-	sudoku_extractor.LoadImage(input_img);
+	sudoku_extractor.ImageLoad(input_img);
 	image_loaded_flag = true;
 }
 
@@ -111,7 +110,7 @@ void ParameterSetter::SetDEBlockSize(int block_size, unsigned int col, unsigned 
 {
 	if(image_loaded_flag == false) return;
 	
-	digit_extractor.LoadImage(sudoku_extractor.GetSudoku());
+	digit_extractor.ImageLoad(sudoku_extractor.GetSudoku());
 	digit_extractor.SetBlockSize(block_size);
 	digit_extractor.SetAdjustFlag();
 	digit_extractor.ExtractDigit(col, row, 50); //!!!
@@ -126,7 +125,7 @@ void ParameterSetter::SetDEC(double c, unsigned int col, unsigned int row)
 {
 	if(image_loaded_flag == false) return;
 
-	digit_extractor.LoadImage(sudoku_extractor.GetSudoku());
+	digit_extractor.ImageLoad(sudoku_extractor.GetSudoku());
 	digit_extractor.SetC(c);
 	digit_extractor.SetAdjustFlag();
 	digit_extractor.ExtractDigit(col, row, 50); 
@@ -141,7 +140,7 @@ void ParameterSetter::SetDEPercentage(int percentage, unsigned int col, unsigned
 {
 	if(image_loaded_flag == false) return;
 
-	digit_extractor.LoadImage(sudoku_extractor.GetSudoku());
+	digit_extractor.ImageLoad(sudoku_extractor.GetSudoku());
 	digit_extractor.SetPercentage(percentage);
 	digit_extractor.SetAdjustFlag();
 	digit_extractor.ExtractDigit(col, row, 50); 
@@ -156,7 +155,7 @@ void ParameterSetter::SetDEN(int n, unsigned int col, unsigned int row)
 {
 	if(image_loaded_flag == false) return;
 
-	digit_extractor.LoadImage(sudoku_extractor.GetSudoku());
+	digit_extractor.ImageLoad(sudoku_extractor.GetSudoku());
 	digit_extractor.SetN(n);
 	digit_extractor.SetAdjustFlag();
 	digit_extractor.ExtractDigit(col, row, 50);
@@ -171,7 +170,7 @@ void ParameterSetter::SetDEKernelSizeMorph(int kernel_size, unsigned int col, un
 {
 	if(image_loaded_flag == false) return;
 
-	digit_extractor.LoadImage(sudoku_extractor.GetSudoku());
+	digit_extractor.ImageLoad(sudoku_extractor.GetSudoku());
 	digit_extractor.SetKernelSizeMorph(kernel_size);
 	digit_extractor.SetAdjustFlag();
 	digit_extractor.ExtractDigit(col, row, 50);

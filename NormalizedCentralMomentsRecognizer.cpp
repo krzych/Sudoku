@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "NormalizedCentralMomentsRecognizer.h"
 #include <fstream>
 #include <boost\archive\xml_oarchive.hpp>

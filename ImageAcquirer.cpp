@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ImageAcquirer.h"
 
 #include <opencv2\highgui\highgui.hpp>

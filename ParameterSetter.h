@@ -15,7 +15,7 @@ public:
 	ParameterSetter(void);
 	~ParameterSetter(void);
 
-	void LoadImage(const char* file_name);
+	void ImageLoad(const char* file_name);
 	void ViewInputImage(void);
 	void ClearAllAdjustFlags(void);
 

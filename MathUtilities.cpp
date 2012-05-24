@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "MathUtilities.h"
 #include <ctime>
 #include <cstdlib>

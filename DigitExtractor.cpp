@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "DigitExtractor.h"
 #include "ImageUtilities.h"
 #include <opencv2\imgproc\imgproc.hpp>
@@ -45,14 +44,14 @@ boost::optional<cv::Mat> DigitExtractor::ExtractDigit(unsigned int col,
 		for(int i = 0; i < (int)v.size(); ++i) {
 			if(area < (int)v[i].size()) index = i;
 		}
-		cv::Rect rect = cv::boundingRect(v[index]);
+		cv::Rect rect = cv::boundingRect(Mat(v[index]));
 		return boost::optional<cv::Mat>(cv::Mat(cell_img, rect).clone());
 	} else {
 		return boost::optional<cv::Mat>();
 	}
 }
 	
-void DigitExtractor::LoadImage(cv::Mat& img)
+void DigitExtractor::ImageLoad(cv::Mat& img)
 {
 	input_img = img.clone();
 	cell_width  = (int)floor(input_img.size().width /9.0);

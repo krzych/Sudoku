@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "SudokuExtractor.h"
 #include "ImageUtilities.h"
 #include <vector>
@@ -26,7 +25,7 @@ SudokuExtractor::~SudokuExtractor(void)
 	Save();
 }
 
-void SudokuExtractor::LoadImage(cv::Mat& img)
+void SudokuExtractor::ImageLoad(cv::Mat& img)
 {
 	input_img = img.clone();
 	tmp_img = cv::Mat(input_img.size(), CV_8UC1);
@@ -110,7 +109,7 @@ void SudokuExtractor::Preprocess(void)
 		return;
 	}
 
-	Rect rect = boundingRect(squares[index]);
+	Rect rect = boundingRect(Mat(squares[index]));
 	offset = Point(rect.x, rect.y);
 	tmp_img = Mat(tmp_img, rect).clone();
 

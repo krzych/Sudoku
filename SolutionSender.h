@@ -12,7 +12,7 @@ public:
 	~SolutionSender(void);
 	
 	void LoadSolution(std::vector<SudokuCell> v);
-	void LoadImage(cv::Mat& img);
+	void ImageLoad(cv::Mat& img);
 	void Run(void);
 
 private:

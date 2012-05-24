@@ -9,7 +9,7 @@ public:
 	SudokuExtractor(void);
 	~SudokuExtractor(void);
 
-	void LoadImage(cv::Mat& img);
+	void ImageLoad(cv::Mat& img);
 	cv::Mat GetSudoku(void);
 	cv::Mat GetTransformationMatrix(void);
 	void SetDefaultSize(cv::Size size);

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "SolutionSender.h"
 #include "MathUtilities.h"
 #include <opencv2\highgui\highgui.hpp>
@@ -20,9 +19,9 @@ void SolutionSender::LoadSolution(std::vector<SudokuCell> v)
 	solution_loaded_flag = true;
 }
 
-void SolutionSender::LoadImage(cv::Mat& img)
+void SolutionSender::ImageLoad(cv::Mat& img)
 {
-	solution_viewer.LoadImage(img);
+	solution_viewer.ImageLoad(img);
 	image_loaded_flag = true;
 }
 

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "SolutionViewer.h"
 #include <opencv2\highgui\highgui.hpp>
 
@@ -15,7 +14,7 @@ SolutionViewer::~SolutionViewer(void)
 	CloseWindow();
 }
 
-void SolutionViewer::LoadImage(cv::Mat& img)
+void SolutionViewer::ImageLoad(cv::Mat& img)
 {
 	input_img = img.clone();
 	image_loaded_flag = true;

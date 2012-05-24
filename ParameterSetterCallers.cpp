@@ -1,10 +1,9 @@
-#include "stdafx.h"
 #include "ParameterSetterCallers.h"
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
-#ifdef LoadImage
-#undef LoadImage
+#ifdef ImageLoad
+#undef ImageLoad
 #endif
 
 extern "C" SUDOKUDLL_API ParameterSetter* CreateParameterSetter(void)
@@ -17,9 +16,9 @@ extern "C" SUDOKUDLL_API void DisposeParameterSetter(ParameterSetter* p_object)
 	delete p_object;
 }
 
-extern "C" SUDOKUDLL_API void CallLoadImage(ParameterSetter* p_object, const char* file_name)
+extern "C" SUDOKUDLL_API void CallImageLoad(ParameterSetter* p_object, const char* file_name)
 {
-	p_object->LoadImage(file_name);
+	p_object->ImageLoad(file_name);
 }
 
 extern "C" SUDOKUDLL_API void CallViewInputImage(ParameterSetter* p_object)

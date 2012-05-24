@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+
 #include "Sudoku.h"
 #include "NormalizedCentralMomentsRecognizer.h"
 #include <opencv2\highgui\highgui.hpp>
@@ -22,7 +22,7 @@ void Sudoku::Run(void)
 	cout << "Filename: ";
 	cin >> file_name;
 	cv::Mat input_img = image_acquirer.AcquireImage(file_name.c_str());
-	image_processing.LoadImage(input_img);
+	image_processing.ImageLoad(input_img);
 
 	digit_recognizer = new NormalizedCentralMomentsRecognizer();
 	digit_recognizer->SetMode(DEFAULT_MODE);
@@ -38,7 +38,7 @@ void Sudoku::Run(void)
 	std::vector<SudokuCell> solution = sudoku_solver.Run();
 	cv::Mat extracted_sudoku = image_processing.GetSudoku();
 	solution_sender.LoadSolution(solution);
-	solution_sender.LoadImage(extracted_sudoku);
+	solution_sender.ImageLoad(extracted_sudoku);
 	solution_sender.Run();
 
 	cv::waitKey(0);

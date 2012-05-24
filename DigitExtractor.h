@@ -12,7 +12,7 @@ public:
 
 	boost::optional<cv::Mat> ExtractDigit(unsigned int col, unsigned int row,
 										  unsigned int thresh);
-	void LoadImage(cv::Mat& img);
+	void ImageLoad(cv::Mat& img);
 
 	inline int GetBlockSize(void) { return block_size_; }
 	inline void SetBlockSize(int blockSize) { block_size_ = blockSize; }

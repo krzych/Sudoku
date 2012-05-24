@@ -11,7 +11,7 @@ public:
 	SolutionViewer(void);
 	~SolutionViewer(void);
 
-	void LoadImage(cv::Mat& img);
+	void ImageLoad(cv::Mat& img);
 	void LoadSolution(std::vector<SudokuCell> v);
 	void View(void);
 	void CloseWindow(void);

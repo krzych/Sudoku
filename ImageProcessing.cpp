@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ImageProcessing.h"
 #include <boost\optional.hpp>
 #include <iostream>
@@ -19,8 +18,8 @@ std::vector<SudokuCellImg> ImageProcessing::Run(void)
 {
 	assert(ready_flag == true);
 
-	sudoku_extractor.LoadImage(input_img);
-	digit_extractor.LoadImage(sudoku_extractor.GetSudoku());
+	sudoku_extractor.ImageLoad(input_img);
+	digit_extractor.ImageLoad(sudoku_extractor.GetSudoku());
 
 	std::vector<SudokuCellImg> v;
 	for(int row = 0; row < 9; ++row) {
@@ -41,7 +40,7 @@ std::vector<SudokuCellImg> ImageProcessing::Run(void)
 	return v;
 }
 	
-void ImageProcessing::LoadImage(cv::Mat& img)
+void ImageProcessing::ImageLoad(cv::Mat& img)
 {
 	input_img = img.clone();
 	ready_flag = true;

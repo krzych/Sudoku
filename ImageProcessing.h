@@ -19,7 +19,7 @@ public:
 	~ImageProcessing(void);
 
 	std::vector<SudokuCellImg> Run(void);
-	void LoadImage(cv::Mat& img);
+	void ImageLoad(cv::Mat& img);
 	cv::Mat GetSudoku(void);
 
 private:
